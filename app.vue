@@ -33,8 +33,8 @@
             <tbody>
               <tr v-for="(item, index) in players" :key="index">
                 <th>{{index}}</th>
-                <td>{{item[0]}}</td>
-                <td>{{item[1]}}</td>
+                <td>{{item[index][0]}}</td>
+                <td>{{item[index][1]}}</td>
               </tr>
             </tbody>
           </table>
@@ -119,8 +119,7 @@ export default {
         const { data: { text } } = await this.worker.recognize(this.$refs.canvas,rectangle);
 
         let matchedTexts = text.match(/[A-Z]{1}[a-z]{1,14} [A-Z]{1}[a-z]{1,14}/g)
-        console.log("matchedTexts", matchedTexts)
-
+        
         if (matchedTexts == null) return
 
         let l1 = []
@@ -142,15 +141,17 @@ export default {
           })
         })
 
-        if (l3.length) {
-
+        
+        if (l3.length > 0) {
           l3.forEach((x, i) => {
             this.gs_players.forEach((y, j) => {
-              if(x == y[0]) this.players.unshift(y)
+              if (x == l2[j]) {
+                this.players.unshift(y)
+              }
             })
           })
           const x = new Set(this.players)
-          this.players = array([...x])
+          this.players = new Array([...x])
         }
       })()
     },
@@ -182,6 +183,9 @@ export default {
       setInterval(() => {
         this.$refs.canvas.getContext('2d').drawImage(this.$refs.video, 0, 0, 1920, 1080)
         this.detect()
+        fetch("https://script.google.com/macros/s/AKfycbwoHedneUlLGbqSZxU97ES2-0nkSIB8eTjDIeNqckesVsYnZ0QgXLK9CP1Ux52GWL0P/exec")
+          .then(response => response.json())
+          .then(data => this.gs_players = data)
       }, 13000);
     })();
 
