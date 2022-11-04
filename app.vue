@@ -118,7 +118,7 @@ export default {
       (async () => {
         const { data: { text } } = await this.worker.recognize(this.$refs.canvas,rectangle);
 
-        let matchedTexts = text.match(/[A-Z]{1}[a-z] [A-Z]{1}[a-z]/g)
+        let matchedTexts = text.match(/[A-Z]{1}[a-z]{1,14} [A-Z]{1}[a-z]{1,14}/g)
         console.log("matchedTexts", matchedTexts)
 
         if (matchedTexts == null) return
