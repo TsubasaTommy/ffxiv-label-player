@@ -14,55 +14,57 @@
         </div>
       </div>
     </div>
+    
+    <div v-show="!toggle.firstpage" class="wrapper h-screen">
+      <div class=" overflow-y-scroll item1">
+        <table class="table table-compact w-full overflow-y-scroll">
+          <thead>
+            <tr>
+              <th></th>
+              <th>キャラクター名</th>
+              <th>ラベル</th>
+            </tr>
+          </thead>
+          <tbody>
 
-    <div v-show="!toggle.firstpage" class="hero min-h-screen bg-base-200">
-      <div class="hero-content flex-col lg:flex-row">
-        
-        
-        
-        <div class="max-h-96 overflow-y-scroll">
-          <table class="table table-compact w-full overflow-y-scroll">
-            <thead>
-              <tr>
-                <th></th>
-                <th>キャラクター名</th>
-                <th>ラベル</th>
-              </tr>
-            </thead>
-            <tbody>
+            <tr v-if="players.length  == 0" >
+              <th><i class="mdi mdi-clock-outline"></i>{{ new Date().getHours() + ":" + new Date().getMinutes() }}</th>
+              <td>ここに検知されたプレイヤーがリストアップされます</td>
+            </tr>
 
-              <tr v-if="players.length == 0">
-                <th><i class="mdi mdi-clock-outline"></i>{{ new Date().getHours() + ":" + new Date().getMinutes() }}</th>
-                <td>ここに検知されたプレイヤーがリストアップされます</td>
-              </tr>
-
-              <tr v-for="(item, index) in players" :key="index">
-                <th><i class="mdi mdi-clock-outline"></i>{{item[2]}}</th>
-                <td>{{item[0]}}</td>
-                <td>{{item[1]}}</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-
-
-
-        <div>
-          <progress v-show="toggle.progress" class="progress progress-secondary w-64"></progress>
-
-          <p class="py-6">
-            FFXIVの画面をキャプチャして始めてください🎉<br>
-            スプレッドシートに登録されたキャラクターが検知されます♥
-          </p>
-
-          <button @click="windowCapture()" class="btn btn-primary">スタート！<i class="mdi mdi-monitor"></i></button>
-          <a href="https://docs.google.com/spreadsheets/d/1QyVdvmeGgUs1sej-wVs8ec4g8XfnTLs2V6oHEzYcPcM/edit?usp=sharing" target="_blank" rel="noopener noreferrer">
-            <button class="btn btn-accent mx-3">キャラクターを登録 <i class="mdi mdi-checkbox-multiple-blank-outline"></i></button>
-          </a>
-          <label for="my-modal-4" class="btn btn-secondary">ko-fi♥</label>
-          <label for="my-modal-3" class="btn btn-secondary mx-3">paypay♥</label>
-        </div>
+            <tr v-for="(item, index) in players" :key="index">
+              <th><i class="mdi mdi-clock-outline"></i>{{item[2]}}</th>
+              <td>{{item[0]}}</td>
+              <td>{{item[1]}}</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
+
+
+
+      <div class="item2">
+
+        <progress v-show="toggle.progress" class="progress progress-secondary w-full"></progress>
+
+        <p class="py-6">
+          FFXIVの画面をキャプチャして始めてください🎉<br>
+          スプレッドシートに登録されたキャラクターが検知されます♥
+        </p>
+
+        <button @click="windowCapture()" class="btn btn-primary btn-block">スタート！<i class="mdi mdi-monitor"></i></button>
+        <a href="https://docs.google.com/spreadsheets/d/1QyVdvmeGgUs1sej-wVs8ec4g8XfnTLs2V6oHEzYcPcM/edit?usp=sharing" target="_blank" rel="noopener noreferrer">
+          <button class="btn btn-accent btn-block my-1">キャラクターを登録 <i class="mdi mdi-checkbox-multiple-blank-outline"></i></button>
+        </a>
+        <label for="my-modal-4" class="btn btn-block glass">ko-fi♥</label>
+        <label for="my-modal-3" class="btn btn-block my-1 glass">paypay♥</label>
+      </div>
+
+      <div class="item3 stream-content">
+        <video ref="video" autoplay></video>
+        <canvas ref="canvas" width="1920" height="1080"></canvas>
+      </div>
+    
     </div>
 
 
@@ -83,23 +85,42 @@
     </label>
 
 
-
-    <div class="stream-content">
-      <video ref="video" autoplay></video>
-      <canvas ref="canvas" width="1920" height="1080"></canvas>
-    </div>
   </div>
 </template>
 
 <style scoped>
+.wrapper{
+  display:grid;
+  grid-template-columns: repeat(3,1fr);
+  grid-template-rows:repeat(3,1fr);
+}
+.item1{
+  grid-column-start: 1;
+  grid-column-end: 3;
+  grid-row-start: 1;
+  grid-row-end: 4;
+}
+.item2{
+  grid-column-start: 3;
+  grid-column-end: 4;
+  grid-row-start: 1;
+  grid-row-end: 3;
+  z-index: 1;
+}
+.item3{
+  grid-column-start: 3;
+  grid-column-end: 4;
+  grid-row-start: 3;
+  grid-row-end: 4;
+}
 .stream-content{
-  position: absolute;
+  position: relative;
   top: 0;
   right: 0;
-  z-index: 1000;
 }
 canvas,video{
-  max-width: 200px;
+  width: 100%;
+  height: 50%;
 }
 
 </style>
@@ -117,6 +138,37 @@ export default {
         firstpage: true,
         progress:false
       },
+      test: [
+        ['sample1', "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"],
+        ['sample1', "xxxxxxxxxxxxxxxxxxxxx"],
+        ['sample1', "xxxxxxxxxxxxxxxxxxxxx"],
+        ['sample1', "xxxxxxxxxxxxxxxxxxxxx"],
+        ['sample1', "xxxxxxxxxxxxxxxxxxxxx"],
+        ['sample1', "xxxxxxxxxxxxxxxxxxxxx"],
+        ['sample1', "xxxxxxxxxxxxxxxxxxxxx"],
+        ['sample1', "xxxxxxxxxxxxxxxxxxxxx"],
+        ['sample1', "xxxxxxxxxxxxxxxxxxxxx"],
+        ['sample1', "xxxxxxxxxxxxxxxxxxxxx"],
+        ['sample1', "xxxxxxxxxxxxxxxxxxxxx"],
+        ['sample1', "xxxxxxxxxxxxxxxxxxxxx"],
+        ['sample1', "xxxxxxxxxxxxxxxxxxxxx"],
+        ['sample1', "xxxxxxxxxxxxxxxxxxxxx"],
+        ['sample1', "xxxxxxxxxxxxxxxxxxxxx"],
+        ['sample1', "xxxxxxxxxxxxxxxxxxxxx"],
+        ['sample1', "xxxxxxxxxxxxxxxxxxxxx"],
+        ['sample1', "xxxxxxxxxxxxxxxxxxxxx"],
+        ['sample1', "xxxxxxxxxxxxxxxxxxxxx"],
+        ['sample1', "xxxxxxxxxxxxxxxxxxxxx"],
+        ['sample1', "xxxxxxxxxxxxxxxxxxxxx"],
+        ['sample1', "xxxxxxxxxxxxxxxxxxxxx"],
+        ['sample1', "xxxxxxxxxxxxxxxxxxxxx"],
+        ['sample1', "xxxxxxxxxxxxxxxxxxxxx"],
+        ['sample1', "xxxxxxxxxxxxxxxxxxxxx"],
+        ['sample1', "xxxxxxxxxxxxxxxxxxxxx"],
+        ['sample1', "xxxxxxxxxxxxxxxxxxxxx"],
+        ['sample1', "xxxxxxxxxxxxxxxxxxxxx"],
+
+      ]
     }
   },
   methods: {
@@ -199,7 +251,7 @@ export default {
         tessedit_char_whitelist: 'ABCDEFGHIJKLMNOPQRSTUVWXYZ abcdefghijklmnopqrstuvwxyz',
       });
       setInterval(() => {
-        if(!this.toggle.progress) return
+        if(!this.toggle.progress) return 0
         this.$refs.canvas.getContext('2d').drawImage(this.$refs.video, 300, 90, 1350, 700,0, 0, 1920, 1080)
         this.detect()
         fetch("https://script.google.com/macros/s/AKfycbwoHedneUlLGbqSZxU97ES2-0nkSIB8eTjDIeNqckesVsYnZ0QgXLK9CP1Ux52GWL0P/exec")
