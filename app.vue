@@ -1,5 +1,6 @@
 <template>
   <div>
+    <fullscreen />
     <div v-show="toggle.firstpage" class="hero min-h-screen bg-base-200">
       <div class="hero-content flex-col lg:flex-row">
         <img src="./static/logos/logo.png" class="max-w-sm rounded-lg shadow-2xl" />
