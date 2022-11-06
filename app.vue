@@ -29,11 +29,16 @@
               </tr>
             </thead>
             <tbody>
+
+              <tr v-if="players.length == 0">
+                <th>{{ "[" + new Date().getHours() + ":" + new Date().getMinutes() + "]" }}</th>
+                <td>ここに検知されたプレイヤーがリストアップされます</td>
+              </tr>
+
               <tr v-for="(item, index) in players" :key="index">
-                <th>{{item[2]}}</th>
+                <th><i class="mdi mdi-clock-outline"></i>{{item[2]}}</th>
                 <td>{{item[0]}}</td>
                 <td>{{item[1]}}</td>
-                <td>{{}}</td>
               </tr>
             </tbody>
           </table>
@@ -115,7 +120,7 @@ export default {
   },
   methods: {
     detect() {
-      const rectangle = { left: 1000, top: 80, width: 1400, height: 810 };
+      const rectangle = { left: 300, top: 80, width: 1400, height: 810 };
 
       (async () => {
         const { data: { text } } = await this.worker.recognize(this.$refs.canvas,rectangle);
@@ -148,7 +153,7 @@ export default {
             this.gs_players.forEach((y, j) => {
               if (x == l2[j]) {
                 this.players.unshift(y)
-                this.players[0][2] = "[" + date.getHours() + ":" + date.getMinutes() + "]"
+                this.players[0][2] =  date.getHours() + ":" + date.getMinutes()
               }
             })
           })
@@ -193,7 +198,7 @@ export default {
         tessedit_char_whitelist: 'ABCDEFGHIJKLMNOPQRSTUVWXYZ abcdefghijklmnopqrstuvwxyz',
       });
       setInterval(() => {
-        this.$refs.canvas.getContext('2d').drawImage(this.$refs.video, 0, 0, 1920, 1080)
+        this.$refs.canvas.getContext('2d').drawImage(this.$refs.video, 300, 90, 1350, 700,0, 0, 1920, 1080)
         this.detect()
         fetch("https://script.google.com/macros/s/AKfycbwoHedneUlLGbqSZxU97ES2-0nkSIB8eTjDIeNqckesVsYnZ0QgXLK9CP1Ux52GWL0P/exec")
           .then(response => response.json())
