@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="overflow-hidden">
     <fullscreen v-if="toggle.firstpage" />
     <div v-show="toggle.firstpage" class="hero min-h-screen bg-base-200">
       <div class="hero-content flex-col lg:flex-row">
@@ -32,7 +32,7 @@
               <td>ここに検知されたプレイヤーがリストアップされます</td>
             </tr>
 
-            <tr v-for="(item, index) in players" :key="index">
+            <tr v-for="(item, index) in test" :key="index">
               <th><i class="mdi mdi-clock-outline"></i>{{item[2]}}</th>
               <td>{{item[0]}}</td>
               <td>{{item[1]}}</td>
@@ -143,8 +143,66 @@ export default {
       },
       audio: new Howl({
         src: [se1],
-        volume:0.5
-      })
+        volume:0.3
+      }),
+      test: [
+        ['namename', 'texttexttext'],
+        ['namename','texttexttext'],
+        ['namename','texttexttext'],
+        ['namename','texttexttext'],
+        ['namename','texttexttext'],
+        ['namename','texttexttext'],
+        ['namename','texttexttext'],
+        ['namename','texttexttext'],
+        ['namename','texttexttext'],
+        ['namename','texttexttext'],
+        ['namename','texttexttext'],
+        ['namename','texttexttext'],
+        ['namename','texttexttext'],
+        ['namename','texttexttext'],
+        ['namename','texttexttext'],
+        ['namename','texttexttext'],
+        ['namename','texttexttext'],
+        ['namename','texttexttext'],
+        ['namename','texttexttext'],
+        ['namename','texttexttext'],
+        ['namename','texttexttext'],
+        ['namename','texttexttext'],
+        ['namename','texttexttext'],
+        ['namename','texttexttext'],
+        ['namename','texttexttext'],
+        ['namename','texttexttext'],
+        ['namename','texttexttext'],
+        ['namename','texttexttext'],
+        ['namename','texttexttext'],
+        ['namename','texttexttext'],
+        ['namename','texttexttext'],
+        ['namename','texttexttext'],
+        ['namename','texttexttext'],
+        ['namename','texttexttext'],
+        ['namename','texttexttext'],
+        ['namename','texttexttext'],
+        ['namename','texttexttext'],
+        ['namename','texttexttext'],
+        ['namename','texttexttext'],
+        ['namename','texttexttext'],
+        ['namename','texttexttext'],
+        ['namename','texttexttext'],
+        ['namename','texttexttext'],
+        ['namename','texttexttext'],
+        ['namename','texttexttext'],
+        ['namename','texttexttext'],
+        ['namename','texttexttext'],
+        ['namename','texttexttext'],
+        ['namename','texttexttext'],
+        ['namename','texttexttext'],
+        ['namename','texttexttext'],
+        ['namename','texttexttext'],
+        ['namename','texttexttext'],
+        ['namename','texttexttext'],
+        ['namename','texttexttext'],
+        ['namename', 'texttexttext'],
+      ]
     }
   },
   methods: {
