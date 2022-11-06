@@ -1,29 +1,12 @@
 <template>
-  <div class="fs" v-if="toggle">
+  <div class="fs">
     <div id="fly-in">
       <div><span>FINALFANTASY XIV</span>PlayerDetect</div>
-      <div>TsupataProduction<span>made by</span></div>
+      <div><span>made by</span>TsupataProduction</div>
     </div>
   </div>
 </template>
 
-<script>
-export default {
-  data() {
-    return {
-      toggle:true,
-    }
-  },
-  mounted() {
-    window.onload = () => {
-      setTimeout(() => {
-        this.toggle = false
-      }, 12000);
-    }
-  },
-  
-}
-</script >
 <style scoped>
 .fs{
   height:100vh;
@@ -67,7 +50,7 @@ export default {
   opacity: 0;
   left: 10vw;
   width: 80vw;
-  animation: switch 32s linear infinite;
+  animation: switch 32s linear;
 }
 
 #fly-in div:nth-child(2) {

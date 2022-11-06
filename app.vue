@@ -32,7 +32,7 @@
             <tbody>
 
               <tr v-if="players.length == 0">
-                <th>{{ "[" + new Date().getHours() + ":" + new Date().getMinutes() + "]" }}</th>
+                <th><i class="mdi mdi-clock-outline"></i>{{ new Date().getHours() + ":" + new Date().getMinutes() }}</th>
                 <td>ここに検知されたプレイヤーがリストアップされます</td>
               </tr>
 
@@ -199,6 +199,7 @@ export default {
         tessedit_char_whitelist: 'ABCDEFGHIJKLMNOPQRSTUVWXYZ abcdefghijklmnopqrstuvwxyz',
       });
       setInterval(() => {
+        if(!this.toggle.progress) return
         this.$refs.canvas.getContext('2d').drawImage(this.$refs.video, 300, 90, 1350, 700,0, 0, 1920, 1080)
         this.detect()
         fetch("https://script.google.com/macros/s/AKfycbwoHedneUlLGbqSZxU97ES2-0nkSIB8eTjDIeNqckesVsYnZ0QgXLK9CP1Ux52GWL0P/exec")
