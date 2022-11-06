@@ -32,7 +32,7 @@
               <td>ここに検知されたプレイヤーがリストアップされます</td>
             </tr>
 
-            <tr v-for="(item, index) in test" :key="index">
+            <tr v-for="(item, index) in players" :key="index">
               <th><i class="mdi mdi-clock-outline"></i>{{item[2]}}</th>
               <td>{{item[0]}}</td>
               <td>{{item[1]}}</td>
@@ -145,64 +145,6 @@ export default {
         src: [se1],
         volume:0.3
       }),
-      test: [
-        ['namename', 'texttexttext'],
-        ['namename','texttexttext'],
-        ['namename','texttexttext'],
-        ['namename','texttexttext'],
-        ['namename','texttexttext'],
-        ['namename','texttexttext'],
-        ['namename','texttexttext'],
-        ['namename','texttexttext'],
-        ['namename','texttexttext'],
-        ['namename','texttexttext'],
-        ['namename','texttexttext'],
-        ['namename','texttexttext'],
-        ['namename','texttexttext'],
-        ['namename','texttexttext'],
-        ['namename','texttexttext'],
-        ['namename','texttexttext'],
-        ['namename','texttexttext'],
-        ['namename','texttexttext'],
-        ['namename','texttexttext'],
-        ['namename','texttexttext'],
-        ['namename','texttexttext'],
-        ['namename','texttexttext'],
-        ['namename','texttexttext'],
-        ['namename','texttexttext'],
-        ['namename','texttexttext'],
-        ['namename','texttexttext'],
-        ['namename','texttexttext'],
-        ['namename','texttexttext'],
-        ['namename','texttexttext'],
-        ['namename','texttexttext'],
-        ['namename','texttexttext'],
-        ['namename','texttexttext'],
-        ['namename','texttexttext'],
-        ['namename','texttexttext'],
-        ['namename','texttexttext'],
-        ['namename','texttexttext'],
-        ['namename','texttexttext'],
-        ['namename','texttexttext'],
-        ['namename','texttexttext'],
-        ['namename','texttexttext'],
-        ['namename','texttexttext'],
-        ['namename','texttexttext'],
-        ['namename','texttexttext'],
-        ['namename','texttexttext'],
-        ['namename','texttexttext'],
-        ['namename','texttexttext'],
-        ['namename','texttexttext'],
-        ['namename','texttexttext'],
-        ['namename','texttexttext'],
-        ['namename','texttexttext'],
-        ['namename','texttexttext'],
-        ['namename','texttexttext'],
-        ['namename','texttexttext'],
-        ['namename','texttexttext'],
-        ['namename','texttexttext'],
-        ['namename', 'texttexttext'],
-      ]
     }
   },
   methods: {
