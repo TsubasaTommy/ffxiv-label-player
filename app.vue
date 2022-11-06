@@ -3,7 +3,7 @@
     <fullscreen v-if="toggle.firstpage" />
     <div v-show="toggle.firstpage" class="hero min-h-screen bg-base-200">
       <div class="hero-content flex-col lg:flex-row">
-        <img @click="audio.play()" src="./static/logos/logo.png" class="max-w-sm rounded-lg shadow-2xl" />
+        <img @click="audio.play()" src="/logo.webp" class="max-w-sm rounded-lg shadow-2xl" />
         <div>
           <h1 class="text-5xl font-bold">FFXIV Player Label</h1>
           <p class="py-6">
@@ -14,9 +14,10 @@
         </div>
       </div>
     </div>
-    
+
+
     <div v-show="!toggle.firstpage" class="wrapper h-screen">
-      <div class=" overflow-y-scroll item1">
+      <div class="overflow-y-scroll item1">
         <table class="table table-compact w-full overflow-y-scroll">
           <thead>
             <tr>
@@ -40,8 +41,6 @@
           </tbody>
         </table>
       </div>
-
-
 
       <div class="item2">
 
@@ -81,7 +80,7 @@
     <input type="checkbox" id="my-modal-3" class="modal-toggle" />
     <label for="my-modal-3" class="modal cursor-pointer">
       <label class="modal-box relative" for="">
-        <img src="./static/paypay.jpg">
+        <img src="/paypay.webp">
       </label>
     </label>
 
@@ -128,8 +127,8 @@ canvas,video{
 
 <script>
 import { createWorker } from 'tesseract.js';
-import { Howl, Howler } from 'howler'
-import se1 from './static/se1.webm'
+import { Howl } from 'howler'
+import se1 from '/se1.webm'
 
 export default {
   data() {
