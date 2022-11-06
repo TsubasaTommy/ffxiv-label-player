@@ -3,7 +3,7 @@
     <fullscreen />
     <div v-show="toggle.firstpage" class="hero min-h-screen bg-base-200">
       <div class="hero-content flex-col lg:flex-row">
-        <img src="./static/logos/logo.png" class="max-w-sm rounded-lg shadow-2xl" />
+        <img @click="audio.play()" src="./static/logos/logo.png" class="max-w-sm rounded-lg shadow-2xl" />
         <div>
           <h1 class="text-5xl font-bold">FFXIV Player Label</h1>
           <p class="py-6">
@@ -50,6 +50,7 @@
         <p class="py-6">
           FFXIVの画面をキャプチャして始めてください🎉<br>
           スプレッドシートに登録されたキャラクターが検知されます♥
+          <span class="text-xs">(※最小化◎サウンド通知が鳴ります♪)</span>
         </p>
 
         <button @click="windowCapture()" class="btn btn-primary btn-block">スタート！<i class="mdi mdi-monitor"></i></button>
@@ -64,7 +65,7 @@
         <video ref="video" autoplay></video>
         <canvas ref="canvas" width="1920" height="1080"></canvas>
       </div>
-    
+
     </div>
 
 
@@ -127,6 +128,8 @@ canvas,video{
 
 <script>
 import { createWorker } from 'tesseract.js';
+import { Howl, Howler } from 'howler'
+import se1 from './static/se1.webm'
 
 export default {
   data() {
@@ -138,37 +141,10 @@ export default {
         firstpage: true,
         progress:false
       },
-      test: [
-        ['sample1', "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"],
-        ['sample1', "xxxxxxxxxxxxxxxxxxxxx"],
-        ['sample1', "xxxxxxxxxxxxxxxxxxxxx"],
-        ['sample1', "xxxxxxxxxxxxxxxxxxxxx"],
-        ['sample1', "xxxxxxxxxxxxxxxxxxxxx"],
-        ['sample1', "xxxxxxxxxxxxxxxxxxxxx"],
-        ['sample1', "xxxxxxxxxxxxxxxxxxxxx"],
-        ['sample1', "xxxxxxxxxxxxxxxxxxxxx"],
-        ['sample1', "xxxxxxxxxxxxxxxxxxxxx"],
-        ['sample1', "xxxxxxxxxxxxxxxxxxxxx"],
-        ['sample1', "xxxxxxxxxxxxxxxxxxxxx"],
-        ['sample1', "xxxxxxxxxxxxxxxxxxxxx"],
-        ['sample1', "xxxxxxxxxxxxxxxxxxxxx"],
-        ['sample1', "xxxxxxxxxxxxxxxxxxxxx"],
-        ['sample1', "xxxxxxxxxxxxxxxxxxxxx"],
-        ['sample1', "xxxxxxxxxxxxxxxxxxxxx"],
-        ['sample1', "xxxxxxxxxxxxxxxxxxxxx"],
-        ['sample1', "xxxxxxxxxxxxxxxxxxxxx"],
-        ['sample1', "xxxxxxxxxxxxxxxxxxxxx"],
-        ['sample1', "xxxxxxxxxxxxxxxxxxxxx"],
-        ['sample1', "xxxxxxxxxxxxxxxxxxxxx"],
-        ['sample1', "xxxxxxxxxxxxxxxxxxxxx"],
-        ['sample1', "xxxxxxxxxxxxxxxxxxxxx"],
-        ['sample1', "xxxxxxxxxxxxxxxxxxxxx"],
-        ['sample1', "xxxxxxxxxxxxxxxxxxxxx"],
-        ['sample1', "xxxxxxxxxxxxxxxxxxxxx"],
-        ['sample1', "xxxxxxxxxxxxxxxxxxxxx"],
-        ['sample1', "xxxxxxxxxxxxxxxxxxxxx"],
-
-      ]
+      audio: new Howl({
+        src: [se1],
+        volume:0.5
+      })
     }
   },
   methods: {
@@ -200,7 +176,12 @@ export default {
             if(x == y) l3.push(y)
           })
         })
+
+
+        const playerLength = this.players.length
         let date = new Date()
+
+
         if (l3.length > 0) {
           l3.forEach((x, i) => {
             this.gs_players.forEach((y, j) => {
@@ -218,6 +199,10 @@ export default {
           })
           console.log('n', n)
           this.players = n
+          //SE 
+          if (playerLength < n.length) {
+            this.audio.play()
+          }
         }
         console.log("検出されたプレイヤー", matchedTexts)
         console.log("リストされたプレイヤー", this.players)
@@ -232,9 +217,6 @@ export default {
       })()
     }
   },
-
-
-
 
   mounted() {
 
