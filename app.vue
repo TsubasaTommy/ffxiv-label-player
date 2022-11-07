@@ -3,7 +3,7 @@
     <fullscreen v-if="toggle.firstpage" />
     <div v-show="toggle.firstpage" class="hero min-h-screen bg-base-200">
       <div class="hero-content flex-col lg:flex-row">
-        <img @click="audio.play()" src="/logo.webp" class="max-w-sm rounded-lg shadow-2xl" />
+        <img @click="audio.play()" src="/logo.webp" loading="lazy" class="max-w-sm rounded-lg shadow-2xl" />
         <div>
           <h1 class="text-5xl font-bold">FFXIV Player Label</h1>
           <p class="py-6">
@@ -14,7 +14,6 @@
         </div>
       </div>
     </div>
-
 
     <div v-show="!toggle.firstpage" class="wrapper h-screen">
       <div class="overflow-y-scroll item1">
@@ -29,12 +28,12 @@
           <tbody>
 
             <tr v-if="players.length  == 0" >
-              <th><i class="mdi mdi-clock-outline"></i>{{ new Date().getHours() + ":" + new Date().getMinutes() }}</th>
-              <td>ここに検知されたプレイヤーがリストアップされます</td>
+              <th><span><svg-icon type="mdi" :path="mdi.clock" :size="16"></svg-icon></span>{{ new Date().getHours() + ":" + new Date().getMinutes() }}</th>
+              <td >ここに検知されたプレイヤーがリストアップされます</td>
             </tr>
 
             <tr v-for="(item, index) in players" :key="index">
-              <th><i class="mdi mdi-clock-outline"></i>{{item[2]}}</th>
+              <th><span><svg-icon type="mdi" :path="mdi.clock" :size="16"></svg-icon></span>{{item[2]}}</th>
               <td>{{item[0]}}</td>
               <td>{{item[1]}}</td>
             </tr>
@@ -52,9 +51,9 @@
           <span class="text-xs">(※最小化◎サウンド通知が鳴ります♪)</span>
         </p>
 
-        <button @click="windowCapture()" class="btn btn-primary btn-block">スタート！<i class="mdi mdi-monitor"></i></button>
+        <button @click="windowCapture()" class="btn btn-primary btn-block">スタート！<svg-icon type="mdi" :path="mdi.monitor" :size="16"></svg-icon></button>
         <a href="https://docs.google.com/spreadsheets/d/1QyVdvmeGgUs1sej-wVs8ec4g8XfnTLs2V6oHEzYcPcM/edit?usp=sharing" target="_blank" rel="noopener noreferrer">
-          <button class="btn btn-accent btn-block my-1">キャラクターを登録 <i class="mdi mdi-checkbox-multiple-blank-outline"></i></button>
+          <button class="btn btn-accent btn-block my-1">キャラクターを登録<svg-icon type="mdi" :path="mdi.blank" :size="16"></svg-icon></button>
         </a>
         <label for="my-modal-4" class="btn btn-block glass">ko-fi♥</label>
         <label for="my-modal-3" class="btn btn-block my-1 glass">paypay♥</label>
@@ -72,7 +71,7 @@
     <input type="checkbox" id="my-modal-4" class="modal-toggle" />
     <label for="my-modal-4" class="modal cursor-pointer">
       <label class="modal-box relative" for="">
-        <iframe id='kofiframe' src='https://ko-fi.com/tsupata/?hidefeed=true&widget=true&embed=true&preview=true'
+        <iframe id='kofiframe' loading="lazy" src='https://ko-fi.com/tsupata/?hidefeed=true&widget=true&embed=true&preview=true'
           style='border:none;width:100%;padding:1px;background:#f9f9f9;' height='712' title='tsupata'></iframe>
       </label>
     </label>
@@ -80,7 +79,7 @@
     <input type="checkbox" id="my-modal-3" class="modal-toggle" />
     <label for="my-modal-3" class="modal cursor-pointer">
       <label class="modal-box relative" for="">
-        <img src="/paypay.webp">
+        <img src="/paypay.webp" loading="lazy">
       </label>
     </label>
 
@@ -113,6 +112,10 @@
   grid-row-start: 3;
   grid-row-end: 4;
 }
+span {
+  display: inline-block;
+  vertical-align: text-bottom;
+}
 .stream-content{
   position: relative;
   top: 0;
@@ -122,7 +125,6 @@ canvas,video{
   width: 100%;
   height: 50%;
 }
-
 </style>
 
 <script>
@@ -130,7 +132,11 @@ import { createWorker } from 'tesseract.js';
 import { Howl } from 'howler'
 import se1 from '/se1.webm'
 
+import SvgIcon from '@jamescoyle/vue-icon'
+import { mdiMonitor,mdiClockOutline,mdiCheckboxMultipleBlankOutline } from '@mdi/js'
+
 export default {
+  components:{SvgIcon},
   data() {
     return {
       gs_players: [],
@@ -144,6 +150,11 @@ export default {
         src: [se1],
         volume:0.3
       }),
+      mdi: {
+        monitor: mdiMonitor,
+        clock: mdiClockOutline,
+        blank: mdiCheckboxMultipleBlankOutline
+      }
     }
   },
   methods: {

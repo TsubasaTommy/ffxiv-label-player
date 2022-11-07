@@ -1,7 +1,7 @@
 <template>
   <div class="fs">
     <div id="fly-in">
-      <div><span>FINALFANTASY XIV</span>PlayerDetect</div>
+      <div><span>FINALFANTASY XIV</span>Player Label</div>
       <div><span>made by</span>TsupataProduction</div>
     </div>
   </div>

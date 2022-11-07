@@ -21,7 +21,4 @@ export default defineNuxtConfig({
       "process.env.TESS_ENV": process.env.ENV,
     },
   },
-  css: [
-    '@mdi/font/css/materialdesignicons.css'
-  ]
 })
